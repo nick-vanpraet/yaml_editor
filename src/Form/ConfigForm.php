@@ -46,13 +46,6 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $config->get('editor_source'),
     ];
 
-    $form['editor_theme'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Editor theme'),
-      '#description' => $this->t('Enter name of Ace theme to use.'),
-      '#default_value' => $config->get('editor_theme'),
-    ];
-
     return parent::buildForm($form, $form_state);
   }
 
@@ -68,11 +61,9 @@ class ConfigForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $editor_source = $form_state->getValue('editor_source');
-    $editor_theme = $form_state->getValue('editor_theme');
 
     $this->config('yaml_editor.config')
       ->set('editor_source', $editor_source)
-      ->set('editor_theme', $editor_theme)
       ->save();
 
     parent::submitForm($form, $form_state);
